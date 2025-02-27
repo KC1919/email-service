@@ -14,7 +14,7 @@ app.use('/api/v1/email', EmailRouter);
 app.get('/health', (req, res) => {
     try {
         res.status(200).json({
-            message: 'Service up and running'
+            message: 'Email Service up and running'
         });
     } catch (error) {
         console.log('Failed to send email noti', error);
