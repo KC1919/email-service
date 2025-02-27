@@ -1,4 +1,6 @@
 import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config({ path: 'config/.env' });
 import EmailRouter from './routes/email_routes.js';
 const app = express();
 app.use(express.json());
