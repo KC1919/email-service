@@ -1,4 +1,5 @@
 import EmailService from "../service/email_service.js"
+import { successResponse } from "../utils/api_response.js";
 
 const Email = new EmailService();
 
@@ -6,17 +7,16 @@ class EmailController {
     constructor(parameters) {
     }
 
-    static sendEmail = async (req, res) => {
+    static sendEmail = async (req, res, next) => {
         try {
             const { data } = req.body;
-            const { subject, body } = data?.content;
+            const { email, subject, body } = data?.content;
 
-            await Email.sendEmail(subject, body);
-            res.status(200).json({
-                message: 'Response from email noti service'
-            })
+            const result = await Email.sendEmail(email, subject, body);
+            successResponse(res, 200, 'Email sent successfully!', result);
         } catch (error) {
             console.log('Failed to send email!', error);
+            next(error);
         }
     }
 }
