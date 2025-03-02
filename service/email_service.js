@@ -19,7 +19,9 @@ class EmailService {
 
     sendEmail = async (email, subject, body) => {
         try {
-            const info = await this.transporter.sendMail({
+            console.log(email);
+            
+            const response = await this.transporter.sendMail({
                 from: `"Kunal Foo Koch 👻" <${process.env.FROM_EMAIL}>`, // sender address
                 to: email ? email : `${process.env.TO_EMAIL}`, // list of receivers
                 subject: subject, // Subject line
@@ -27,7 +29,8 @@ class EmailService {
                 html: "<b>Hello world?</b>", // html body
             });
 
-            console.log("Message sent: %s", info.messageId);
+            console.log("Message sent: %s", response.messageId);
+            return response;
         } catch (error) {
             console.log('Failed to send email!', error);
             throw new CustomError('Failed to send email, server error', 500);
